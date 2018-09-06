@@ -1,9 +1,9 @@
 {
     "type": "package",
-    "name": "elm-community/elm-time",
-    "summary": "A pure Elm date and time library.",
+    "name": "isaacseymour/deprecated-time",
+    "summary": "elm-community/elm-time updated to 0.19",
     "license": "BSD-3-Clause",
-    "version": "3.0.4",
+    "version": "1.0.0",
     "exposed-modules": [
         "Time.Date",
         "Time.DateTime",
