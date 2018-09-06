@@ -2,7 +2,7 @@ module Time.TimeZone exposing
     ( TimeZone, name, abbreviation, offset, offsetString
     , setName
     , unpack
-    , errorZone, find, parseAbbrevs, parseDiffs, parseIndices, parseName, parseOffsets, pipe
+    , errorZone
     )
 
 {-| This module defines a representations for Timezone information.
@@ -21,6 +21,11 @@ module Time.TimeZone exposing
 # Constructing TimeZones
 
 @docs unpack
+
+
+# Sadly exposed - internal really
+
+@docs errorZone
 
 -}
 
@@ -66,6 +71,9 @@ type SpanList
     | More Span SpanList
 
 
+{-| A fake TimeZone which represents an error parsing zone data. Tests in this package verify it
+will never be returned.
+-}
 errorZone : String -> TimeZone
 errorZone errors =
     TimeZone { name = "error: " ++ errors, spans = Default { until = 0, abbreviation = "error", offset = 0 } }
