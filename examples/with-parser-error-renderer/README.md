@@ -32,7 +32,7 @@ into your directory of other Elm projects as follows:
     cd elm-time
     elm-make --warn
     cd examples/with-parser-error-renderer
-    elm-live --output=elm.js Main.elm --open --warn
+    elm-live Main.elm --open -- --output=elm.js
     ```
 1. Browse http://localhost:8000 and observe that the initial **ISO8601**
    string is parsed successfully into a row of labeled boxes.
