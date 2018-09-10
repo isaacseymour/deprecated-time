@@ -16,6 +16,11 @@ module Time.Iso8601 exposing
 
 @docs toDate, toDateTime, toZonedDateTime
 
+
+# Possible errors
+
+@docs Problem
+
 -}
 
 import Char
@@ -73,6 +78,8 @@ type alias Context =
     String
 
 
+{-| Issues parsing an ISO8601 date
+-}
 type Problem
     = ExpectingDigit
     | ExpectingRange Int Int Int
