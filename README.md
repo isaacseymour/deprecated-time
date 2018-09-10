@@ -10,9 +10,9 @@ This is a fork of elm-community/elm-time, upgraded to support Elm `0.19`. Howeve
 that this is the best way to model time; this package is intended only to make updating your app to
 `0.19` easier. It's recommended to consider using newer libraries instead, for example:
 
-- [https://github.com/justinmimbs/date](justinmimbs/date)
-- [https://github.com/rtfeldman/elm-iso8601-date-strings](rtfeldman/elm-iso8601-date-strings)
-- [https://github.com/ryannhg/date-format](ryannhg/date-format)
+- [justinmimbs/date](https://package.elm-lang.org/packages/justinmimbs/date/latest)
+- [rtfeldman/elm-iso8601-date-strings](https://package.elm-lang.org/packages/rtfeldman/elm-iso8601-date-strings/latest)
+- [ryannhg/date-format](https://package.elm-lang.org/packages/ryannhg/date-format/latest)
 
 
 If you're sticking with this library for now, there's only minimal changes from the latest version
