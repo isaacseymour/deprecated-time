@@ -1,32 +1,26 @@
-# elm-time [![Build Status](https://travis-ci.org/elm-community/elm-time.svg)](https://travis-ci.org/elm-community/elm-time)
+# deprecated-time [![Build Status](https://travis-ci.org/isaacseymour/deprecated-time.svg)](https://travis-ci.org/isaacseymour/deprecated-time)
 
 ``` shell
-elm package install elm-community/elm-time
+elm install isaacseymour/deprecated-time
 ```
 
-## Major Changes!
+## DEPRECATED
 
-This release prepares **elm-time** to be upgraded to Elm `0.19` by changing
-out the **ISO8601** and **Timezone Name** parsing from the 
-**[parser-combinators](http://package.elm-lang.org/packages/elm-community/parser-combinators/latest)** parser to
-Evan's **[parser](http://package.elm-lang.org/packages/elm-tools/parser/latest)**.
+This is a fork of elm-community/elm-time, upgraded to support Elm `0.19`. However, it's not clear
+that this is the best way to model time; this package is intended only to make updating your app to
+`0.19` easier. It's recommended to consider using newer libraries instead, for example:
 
-> NOTE: this release is probably the last Elm `0.18` release.
+- [justinmimbs/date](https://package.elm-lang.org/packages/justinmimbs/date/latest)
+- [rtfeldman/elm-iso8601-date-strings](https://package.elm-lang.org/packages/rtfeldman/elm-iso8601-date-strings/latest)
+- [ryannhg/date-format](https://package.elm-lang.org/packages/ryannhg/date-format/latest)
 
-Hence, the changes are extensive and some API's have changed.  Here's a summary
-of them:
 
-* **ISO8601** processing has been broken out into its own module: `Time.Iso8601`.
-* An "Elm-style" error renderer for **ISO8601** parsing errors is provided: `Time.Iso8601ErrorMsg`.
-* An example Elm client-application showing the error handling is provided in `/examples/with-parser-error-renderer`.
-* Each of the public APIs in `Time.Date`, `Time.DateTime`, `Time.ZonedDateTime`, `Iso8601`, and `Iso8601ErrorMsg`
-now has extensive
-**["verify examples"](https://github.com/stoeffel/elm-verify-examples)** documentation.
+If you're sticking with this library for now, there's only minimal changes from the latest version
+of elm-community/elm-time:
+* Deprecated functions have been removed
+* `toTimestamp` and `fromTimestamp` are renamed to `toPosix` and `fromPosix`, and now deal with
+  `Time.Posix`, rather than the old Float-based time type
 
-## Examples
-
-* **[Error Rendering Example](https://github.com/elm-community/elm-time/blob/daa0e1b60a912519af5b699cc26c0b17a6e06257/examples/with-parser-error-renderer/README.md)**
-* **[Running and Understanding Timezone Examples](https://github.com/elm-community/elm-time/wiki/The-Examples)**
 
 ## Dates
 
@@ -44,20 +38,20 @@ returned.
 
 ``` elm
 > date 1992 2 28
-Date { year = 1992, month = 2, day = 28 } : Date
+Date { year = 1992, month = Feb, day = 28 } : Date
 
 > date 1992 2 31
-Date { year = 1992, month = 2, day = 29 } : Date
+Date { year = 1992, month = Feb, day = 29 } : Date
 
 > date 1992 2 128
-Date { year = 1992, month = 2, day = 29 } : Date
+Date { year = 1992, month = Feb, day = 29 } : Date
 ```
 
 Use `year`, `month`, and `day` to inspect `Date`s.
 
 ``` elm
 > d = date 1992 5 29
-Date { year = 1992, month = 5, day = 29 } : Date
+Date { year = 1992, month = May, day = 29 } : Date
 
 > Date.year d
 1992 : Int
@@ -113,7 +107,7 @@ import Time.DateTime as DateTime exposing (DateTime, dateTime, year, month, day,
 ### Constructing DateTimes
 
 `DateTime`s can be constructed from a record using the `dateTime`
-function or from a UTC timestamp in milliseconds using `fromTimestamp`.
+function or from a UTC timestamp in milliseconds using `fromPosix`.
 To construct a `DateTime` using `dateTime`, pass it a record
 containing fields for `year`, `month`, `day`, `hour`, `minute`,
 `second` and `millisecond`:
@@ -122,38 +116,38 @@ containing fields for `year`, `month`, `day`, `hour`, `minute`,
 dt : DateTime
 dt =
     dateTime { year = 1992, month = 5, day = 29, hour = 0, minute = 0, second = 0, millisecond = 0 }
-    
+
 year dt --> 1992
 month dt --> 5
 day dt --> 29
 hour dt --> 0
 minute dt --> 0
 second --> 0
-millisecond --> 0    
+millisecond --> 0
 
 dt : DateTime
 dt =
     dateTime { year = 1992, month = 2, day = 31, hour = 0, minute = 0, second = 0, millisecond = 0 }
-    
+
 year dt --> 1992
 month dt --> 2
 day dt --> 29 - Note clamped.
 hour dt --> 0
 minute dt --> 0
 second --> 0
-millisecond --> 0    
+millisecond --> 0
 
 dt : DateTime
 dt =
     dateTime { year = 1993, month = 2, day = 31, hour = 0, minute = 0, second = 0, millisecond = 0 }
-    
+
 year dt --> 1993
 month dt --> 2
 day dt --> 28 - Note clamped.
 hour dt --> 0
 minute dt --> 0
 second --> 0
-millisecond --> 0    
+millisecond --> 0
 ```
 
 To make constructing `DateTimes` less tedious, the library provides
@@ -171,11 +165,11 @@ To make constructing `DateTimes` less tedious, the library provides
 "1992-02-28T05:00:00.000Z" : String
 ```
 
-Use `fromTimestamp` to construct a `DateTime` from a UTC timestamp in
+Use `fromPosix` to construct a `DateTime` from a UTC timestamp in
 milliseconds:
 
 ``` elm
-> fromTimestamp 0
+> fromPosix (Time.millisToPosix 0)
 |   |> DateTime.toISO8601
 "1970-01-01T00:00:00.000Z" : String
 ```
